@@ -1,0 +1,263 @@
+/*
+    
+    UNIT TESTING --MAIN-- & --readLine--
+
+*/
+
+int main(int argc, char* argv[]) {
+  if(argv[1] != NULL){
+    FILE *fp = argc > 1 ? fopen(argv[1], "r") : stdin;
+    if(!fp){
+      printf("ERROR");
+      return 1;
+    }
+    char *line = NULL;
+    size_t idx = 0;
+    while (readline(fp, &line)){
+      //processPrompt(line);
+      printf("%s\n", line);
+      free(line);
+      line = NULL;
+    }
+    if(fp != stdin) fclose(fp);
+  }
+  else{
+    promptStatus = START;
+    while(promptStatus != STOP){
+      //prompt();
+      promptStatus += 1;
+      printf("continue\n");                                                                                                                    
+    }
+  }
+  return 0;                                                                                                                                    
+}
+
+char *readline(FILE *fp, char **buffer){                                                                                                       
+  int ch;                                                                                                                                      
+  size_t buflen = 0, nchar = 64;                                                                                                               
+                                                                                                                                               
+  *buffer = malloc(nchar);                                                                                                                     
+  if(!*buffer){                                                                                                                                
+    printf("NoMem");                                                                                                                           
+    return NULL;                                                                                                                               
+  }                                                                                                                                            
+  while ((ch = fgetc(fp)) != '\n' && ch != EOF){                                                                                               
+    (*buffer)[buflen++] = ch;                                                                                                                  
+    if(buflen + 1 >= nchar){                                                                                                                   
+      char *tmp = realloc(*buffer, nchar * 2);                                                                                                 
+      if(!tmp){                                                                                                                                
+        printf("Error");                                                                                                                       
+        (*buffer)[buflen] = 0;                                                                                                                 
+        return *buffer;                                                                                                                        
+      }                                                                                                                                        
+      *buffer = tmp;                                                                                                                           
+      nchar *= 2;                                                                                                                              
+    }                                                                                                                                          
+  }                                                                                                                                            
+  (*buffer)[buflen] = 0;                                                                                                                       
+  if(buflen == 0 && ch == EOF){                                                                                                                
+    free(*buffer);                                                                                                                             
+    *buffer = NULL;                                                                                                                            
+  }                                                                                                                                            
+  return *buffer;                                                                                                                              
+}                                                                                                                                              
+*/                                                                                                                                             
+                                                                                                                                               
+/*                                                                                                                                             
+BATCHFILE                                                                                                                                      
+                                                                                                                                               
+test                                                                                                                                           
+test                                                                                                                                           
+test                                                                                                                                           
+quit                                                                                                                                           
+                                                                                                                                               
+*/                                                                                                                                             
+                                                                                                                                               
+/*                                                                                                                                             
+RETURN:                                                                                                                                        
+                                                                                                                                               
+test                                                                                                                                           
+test                                                                                                                                           
+test                                                                                                                                           
+quit                                                                                                                                           
+*/
+
+/*
+
+    UNIT TESTING PROMPT
+        REGRESSION TESTING MAIN
+*/
+
+/*
+
+int prompt(){
+  char cwd[PATH_MAX];
+  if(getcwd(cwd, sizeof(cwd)) != NULL){
+    printf("\nMyPrompt %s>", cwd);
+    int length = 64;
+    char *input = malloc(length * sizeof(char));
+    int count = 0;
+    char c;
+    while((c = getchar()) != '\n'){
+      if(count >= length){
+        input = realloc(input, (length += 10) * sizeof(char));
+      }
+      input[count++] = c;
+    }
+    //processPrompt(input);
+    printf("%s", input);
+  }
+  else{
+    printf("Error");
+  }
+  return 0;
+}
+
+*/
+
+/*
+
+USER INPUT
+
+test
+test
+test
+
+RETURN DATA VIA PRINT
+
+test
+test
+test
+
+*/
+
+/*
+
+    UNIT TESTING PROCESS PROMPT
+        REGRESSION TESTING MAIN, PROMPT
+*/
+
+/*
+
+int processPrompt(char *userInput){
+  int i = 0;
+  int j = 0;
+  while(userInput[i]){
+    i++;
+    j++;
+  }
+  j++;
+  char command[j];
+  strncpy(command, userInput, j);
+  command[j] = '\0';
+  
+  if(command[j-2] == '&'){
+    executeBackgroundBlock(command);
+  }
+  else if(strstr(command, "|")){
+    executePipeBlock(command);
+  }
+  else if(strstr(command, "<") || strstr(command, ">")){
+    executeIOBlock(command);
+  }
+  else{
+    executeNormalBlock(command);
+  }
+  return 0;
+}
+
+int executeBackgroundBlock(command){
+    printf("1");
+}
+
+int executePipeBlock(command){
+    printf("2");
+}
+
+int executeIOBlock(command){
+    printf("3");
+}
+
+int executeNormalBlock(command){
+    printf("4");
+}
+
+*/
+
+/*
+
+USER INPUT
+
+COMMAND CONTAINING & AT THE END
+COMMAND CONTAINING A |
+COMMAND CONTAINING <
+COMMAND CONTAINING >
+COMMAND CONTAINING NONE OF THE ABOVE
+
+RETURN DATA
+
+1
+2
+3
+3
+4
+
+*/
+
+/*
+
+    UNIT TESTING PARSER, EXECUTE NORMAL BLOCK, AND CHECKER
+        REGRESSION TESTING MAIN, PROMPT, PROCESS PROMPT
+
+*/
+
+/*
+
+    CODE AS SEEN IN THE MYSHELL.C
+
+/*
+
+/*
+
+INPUT
+
+ls
+cd .
+echo hello
+environ
+
+RETURN VALUE
+
+LIST OF DIRECTORY FILES
+NOTHING, CURRENT DIRECTORY
+HELLO
+ENVIRONMENT VARIABLES
+
+/*
+
+    UNIT TESTING IO & BACKGROUND
+        REGRESSION TESTING MAIN, PROMPT, PROCESS PROMPT, CHECKER
+
+*/
+
+/*
+
+    CODE AS SEEN IN MYSHELL.C
+
+*/
+
+/*
+
+INPUT
+
+ls > output.txt
+echo hello >> demo.txt
+ping 8.8.8.8 &
+
+RETURN
+
+OUTPUT FILE WITH THE DIRECTORY CONTENTS
+TRUNCATED DEMO FILE WITH NEW CONTENTS HELLO
+PING IN THE BACKGROUND
+
+*/

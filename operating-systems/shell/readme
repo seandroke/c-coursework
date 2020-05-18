@@ -1,0 +1,154 @@
+MY SHELL USER MANUAL
+
+INTRODUCTION:
+    
+    MyShell is an implementation of a Unix based shell program.
+    The shell allows you to input several different commands to
+    accomplish tasks within your unix based directory.
+
+INVOCATION
+
+    The shell allows for optional commands to be passed at runtime
+    should you require running a batch script or a sequence of commands
+    stored in a file.
+
+    * To execute a batch script invoke the shell via the following syntax.
+      Executing commands in this method will cause the shell to quit at end of file.
+
+                        ./myshell batchfile
+    
+    * To invoke the shell to be given a prompt for user input, do the following
+
+                            ./myshell
+
+USER INPUT SHELL
+
+    A shell invoked without batch file arguments will generate a prompt. Within this
+    text entry field you are able to enter several commands from this library, as well
+    as process commands with a variety of arguments. Another component of this prompt is
+    your current working directory which is a file path that reveals where you are on your
+    system.
+
+                        Commands Include:
+                            1. Change Directory
+                            2. Clear Screen
+                            3. List Environemnt Strings
+                            4. Echo
+                            5. Help
+                            6. Pause
+                            7. Quit
+
+COMMAND LIBRARY
+
+    1. Change Directory
+
+        Command: cd
+        
+        Description: Change your current directory within the shell. A standard Unix directory
+                     is made up of files and directories. Think of directories as folders or containers
+                     for files you create.
+
+        Usage: 
+            cd .. -- This will move your directory up one level from its current status
+            cd /Directory/ -- Here, Directory represents a directory that is visibile within the
+                              scope of your function call. That is, it is within the directory that
+                              is given by your prompt.
+            cd ~ -- This will move back to your root or home directory, or the default
+
+    2. Clear Scren
+
+        Command: clr
+
+        Description: Sometimes, you use a multitude of commands to accomplish a task, which can tend to
+                     fill up your shell window, to see a fresh canvas, use this command.
+
+        Usage:
+            clr -- Clears the view
+
+    3. List Environment Strings
+
+        Command: environ
+
+        Description: This will display variables invoked to this program at run time either by you or the system
+                     that compiled it. Use it as a source for relevant information.
+
+        Usage:
+            environ - Prints environment strings to screen
+
+    4. Echo
+
+        Command: echo
+
+        Description: This will display a comment on the screen for you, if you have text that you need to output
+                     this is the way at which you will invoke it to be printed to screen.
+
+        Usage: echo TEXT -- Here, the shell would print the word TEXT
+
+    5. Help
+
+        Command: help
+
+        Description: Help displays the manual, which you are currently reading, this can help you learn more about the shell.
+
+        Usage: help -- Launches manual
+
+    6. Pause
+
+        Command: pause
+
+        Description: Pause will halt the system for an arbitrary amount of time, it is useful when running complex tasks or whenever
+                     a break in processing is needed. You can end the pause by hitting the newline character or enter on most keyboards.
+
+        Usage: pause -- pauses the syste until enter key is pressed
+
+    7. Quit
+
+        Command: quit
+
+        Description: Quits the shell program and returns you to the environment in which this shell was invoked.
+
+        Usage: quit -- exit or quit
+
+ARGUMENTS
+
+    Arguments can be passed to commands in the following manner, ensure each argument is seperated by white space
+
+                    command arg1 arg2 -- Here command is passed 2 arguments to be used in processing
+    
+INPUT/OUTPUT
+
+    Files can also be brought in as input for programs, functions, or commands or be used for output. The following will detail
+    how this shell processes IO and how you can manipulate the shell to access your files.
+
+        <    -- This symbol represents an input stream, whatever proceeds this value is deemed a file argument to be opened as
+                input so long as it exists. To open file.txt the command would be < file.txt
+
+        >    -- This symbol represents an output stream, whatever proceeds this value is deemed a file to be used for output.
+                The file must exist within the working directory unless an absolute path is given. To output to file.txt command
+                would be > file.txt. Beware, this will overwrite the contents of the file on your system.
+
+        >>   -- This symbol represents output as well, except with this the proceeding file will be created if it does not already exist
+                within the directory, this is useful in saving steps. Also this will append data to the output file rather than truncate and
+                overwrite.
+
+BACKGROUND PROCESSING
+
+    Commands can be run in the background. The key feature with this is that as soon as a command is initiated the control returns to
+    you, there is no wait for the process to end, you instantly have control over the shell to continue to make command requests.
+
+    Executing commands in the background is accomplished by adding an & at the end of an eligible command, such as this.
+
+                                                    ls &
+
+PIPE PROCESSING
+
+    Commands can be piped together. A pipe allows for processes to communicate with eachother. It allows for 2 commands to be run in the same
+    command line. Should the results of one command be dependent on the expected results of another, use a pipe to team commands. Example below
+
+                                                    cat out.txt | wc –l
+
+                                    This will retrieve a word count of the items in out.txt
+
+
+
+    

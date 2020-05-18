@@ -1,0 +1,331 @@
+**********************************************
+SEAN DROKE
+CIS 3207
+PROJECT 1 - GIORGIO'S DISCRETE EVENT SIMULATOR
+TESTING REPORT
+**********************************************
+
+TEST CASE: Initial test of the simulator using a standard set of default values to establish a base case
+
+--INPUT--
+SEED 0
+INIT_TIME 0
+FIN_TIME 1000
+ARRIVE_MIN 10
+ARRIVE_MAX 40
+QUIT_PROB 0.2
+CPU_MIN 1
+CPU_MAX 2
+DISK1_MIN 10
+DISK1_MAX 30
+DISK2_MIN 10
+DISK2_MAX 30
+
+--OUTPUT STATISTICS--
+
+Over 1000 Jobs In Circulation
+
+The average size of the CPU Queue is -- 460 jobs
+
+The maximum size of the CPU Queue is -- 1034 jobs
+
+The CPU Utilization is -- 45.500000%
+
+The average response time of the CPU Queue is -- 219
+
+The maximum response time of the CPU Queue is -- 470
+
+The throughput of the CPU Queue is -- 299 Jobs
+
+
+
+The average size of the Disk 1 Queue is -- 35 jobs
+
+The maximum size of the Disk 1 Queue is -- 80 jobs
+
+The Disk 1 Utilization is -- 70.700005%
+
+The average response time of the Disk 1 Queue is -- 227
+
+The maximum response time of the Disk 1 Queue is -- 517
+
+The throughput of the Disk 1 Queue is -- 33 Jobs
+
+
+
+The average size of the Disk 2 Queue is -- 35 jobs
+
+The maximum size of the Disk 2 Queue is -- 80 jobs
+
+The Disk 2 Utilization is -- 60.299999%
+
+The average response time of the Disk 2 Queue is -- 217
+
+The maximum response time of the Disk 2 Queue is -- 468
+
+The throughput of the Disk 2 Queue is -- 42 Jobs
+
+
+
+The average size of the Event Queue is -- 57 jobs
+
+The maximum size of the Event Queue is -- 89 jobs
+
+--ANALYSIS--
+
+This base case uses some preliminary data to reach 1000+ queued jobs. From the base case it is easy to see that
+to see that the number of jobs processed by the CPU is greatly larger than that of the disks. It is also noticeable
+that significant backlog exists at the CPU since new tasks are appended to it at a far greater rate than I/O.
+Utilization Remains low for the CPU likely because it is running efficient between time values 1 and 2.
+
+
+
+
+
+--TEST CASE--
+Next I will test the results of adjusting the the CPU min and max values to determine the effect on utilization.
+
+--INPUT--
+
+SEED 0
+INIT_TIME 0
+FIN_TIME 1000
+ARRIVE_MIN 10
+ARRIVE_MAX 40
+QUIT_PROB 0.2
+CPU_MIN 10
+CPU_MAX 20
+DISK1_MIN 10
+DISK1_MAX 30
+DISK2_MIN 10
+DISK2_MAX 30
+
+--OUTPUT--
+
+The average size of the CPU Queue is -- 246 jobs
+
+The maximum size of the CPU Queue is -- 522 jobs
+
+The CPU Utilization is -- 80.599998%
+
+The average response time of the CPU Queue is -- 331
+
+The maximum response time of the CPU Queue is -- 664
+
+The throughput of the CPU Queue is -- 55 Jobs
+
+
+
+The average size of the Disk 1 Queue is -- 2 jobs
+
+The maximum size of the Disk 1 Queue is -- 6 jobs
+
+The Disk 1 Utilization is -- 29.400000%
+
+The average response time of the Disk 1 Queue is -- 121
+
+The maximum response time of the Disk 1 Queue is -- 208
+
+The throughput of the Disk 1 Queue is -- 14 Jobs
+
+
+
+The average size of the Disk 2 Queue is -- 2 jobs
+
+The maximum size of the Disk 2 Queue is -- 5 jobs
+
+The Disk 2 Utilization is -- 27.100000%
+
+The average response time of the Disk 2 Queue is -- 85
+
+The maximum response time of the Disk 2 Queue is -- 199
+
+The throughput of the Disk 2 Queue is -- 17 Jobs
+
+
+
+The average size of the Event Queue is -- 23 jobs
+
+The maximum size of the Event Queue is -- 36 jobs
+
+--ANALYSIS--
+
+Increasing the CPU time range caused the CPU utilization to spike as it was spending more time on jobs than before.
+Additionally, because the CPU is responsible for sending jobs to disks, the disk utilization decreased, as did the
+total number of jobs entered into the loop, it was roughly half the original.
+
+
+
+
+--TEST CASE--
+
+Compensating for the decrease in jobs, I will now double the finish time variable allowing more jobs to be processed. In addition to this increase,
+I am adjusting the seed to determine the effect it has on the data.
+
+--INPUT--
+
+SEED 5
+INIT_TIME 0
+FIN_TIME 2000
+ARRIVE_MIN 10
+ARRIVE_MAX 40
+QUIT_PROB 0.2
+CPU_MIN 10
+CPU_MAX 20
+DISK1_MIN 10
+DISK1_MAX 30
+DISK2_MIN 10
+DISK2_MAX 30
+
+--OUTPUT--
+
+The average size of the CPU Queue is -- 1200 jobs
+
+The maximum size of the CPU Queue is -- 2473 jobs
+
+The CPU Utilization is -- 87.750000%
+
+The average response time of the CPU Queue is -- 742
+
+The maximum response time of the CPU Queue is -- 1496
+
+The throughput of the CPU Queue is -- 121 Jobs
+
+
+
+The average size of the Disk 1 Queue is -- 5 jobs
+
+The maximum size of the Disk 1 Queue is -- 12 jobs
+
+The Disk 1 Utilization is -- 32.300003%
+
+The average response time of the Disk 1 Queue is -- 245
+
+The maximum response time of the Disk 1 Queue is -- 467
+
+The throughput of the Disk 1 Queue is -- 31 Jobs
+
+
+
+The average size of the Disk 2 Queue is -- 5 jobs
+
+The maximum size of the Disk 2 Queue is -- 13 jobs
+
+The Disk 2 Utilization is -- 27.900002%
+
+The average response time of the Disk 2 Queue is -- 223
+
+The maximum response time of the Disk 2 Queue is -- 466
+
+The throughput of the Disk 2 Queue is -- 38 Jobs
+
+
+
+The average size of the Event Queue is -- 48 jobs
+
+The maximum size of the Event Queue is -- 73 jobs
+
+--ANALYSIS--
+
+The seed had little effect on the data set as a whole, so the utilization and size values are stable.
+The size of the CPU queue is staggeringly high despite its high utilization, indicating a back log in
+CPU tasks that are not able to be processed.
+
+
+
+
+--TEST CASE--
+
+In a final test I adjusted the arrival min and max to see how the analytics would react.
+
+--INPUT--
+
+The average size of the CPU Queue is -- 5288 jobs
+
+The maximum size of the CPU Queue is -- 10662 jobs
+
+The CPU Utilization is -- 98.650002%
+
+The average response time of the CPU Queue is -- 869
+
+The maximum response time of the CPU Queue is -- 1769
+
+The throughput of the CPU Queue is -- 134 Jobs
+
+
+
+The average size of the Disk 1 Queue is -- 5 jobs
+
+The maximum size of the Disk 1 Queue is -- 11 jobs
+
+The Disk 1 Utilization is -- 37.349998%
+
+The average response time of the Disk 1 Queue is -- 208
+
+The maximum response time of the Disk 1 Queue is -- 472
+
+The throughput of the Disk 1 Queue is -- 41 Jobs
+
+
+
+The average size of the Disk 2 Queue is -- 5 jobs
+
+The maximum size of the Disk 2 Queue is -- 11 jobs
+
+The Disk 2 Utilization is -- 35.350002%
+
+The average response time of the Disk 2 Queue is -- 201
+
+The maximum response time of the Disk 2 Queue is -- 502
+
+The throughput of the Disk 2 Queue is -- 40 Jobs
+
+
+
+The average size of the Event Queue is -- 56 jobs
+
+The maximum size of the Event Queue is -- 85 jobs
+
+--ANALYSIS--
+
+Decreasing this parameter increased the CPU to near max utilization and the log of items in the queue
+was very large due to the inability to keep up with demand.
+
+
+
+
+--TEST CASE--
+
+A test was conducted to verify the functionality of the priority queue.
+
+--INPUT--
+
+    TESTING OF THE PRIORITY QUEUE; ALL EVENTS POP OFF
+
+    randTime = Randomizer(ARRIVE_MIN,ARRIVE_MAX) + currentTime; jobTotal++;
+    priorityAppend(&eventQueue,eventGenerator(randTime,jobTotal,ARRIVAL, 0),&eventSize);
+
+    randTime = Randomizer(ARRIVE_MIN,ARRIVE_MAX) + currentTime; jobTotal++;
+    priorityAppend(&eventQueue,eventGenerator(randTime,jobTotal,ARRIVAL, 0),&eventSize);
+
+    randTime = Randomizer(ARRIVE_MIN,ARRIVE_MAX) + currentTime; jobTotal++;
+    priorityAppend(&eventQueue,eventGenerator(randTime,jobTotal,ARRIVAL, 0),&eventSize);
+
+    event task1 = priorityRemoveFirst(&eventQueue,&eventSize);
+    printf("\n\n\n\n%d\n\n\n\n",task1.jobNumber);
+
+    event task2 = priorityRemoveFirst(&eventQueue,&eventSize);
+    printf("\n\n\n\n%d\n\n\n\n",task2.jobNumber);
+
+    event task3 = priorityRemoveFirst(&eventQueue,&eventSize);
+    printf("\n\n\n\n%d\n\n\n\n",task3.jobNumber);
+
+--OUTPUT--
+
+3 Removed Events
+
+--ANALYSIS--
+
+This test was done by commenting out the loop within the main function of the program and inserting 3 random
+priority queue events. In running this sequence 3 job numbers are printed indicating they were effectively
+popped off the stack.
